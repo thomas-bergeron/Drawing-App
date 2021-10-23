@@ -19,7 +19,7 @@ export class EyeDropperService extends Tool {
 
 	constructor(drawingService: DrawingService) {
 		super(drawingService);
-		this.CURSOR.src = '../../assets/eye-dropper.png';
+		this.CURSOR.src = 'assets/eye-dropper.png';
 	}
 
 	onMouseDown(event: MouseEvent): void {
