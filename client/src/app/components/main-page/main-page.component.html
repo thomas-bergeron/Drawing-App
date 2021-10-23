@@ -1,0 +1,20 @@
+<div class="section">
+	<header class="header">
+		<h1 class="header-item">{{ title }}</h1>
+	</header>
+	<div class="container">
+		<div class="welcome-message">
+			<P>Bienvenue sur notre site de dessin</P>
+		</div>
+		<button mat-raised-button class="button" (click)="newDrawing()">Créer un nouveau dessin</button>
+		<button mat-raised-button class="button" (click)="openModal()">Ouvrir le carrousel de dessin</button>
+		<button *ngIf="thereIsDrawing" mat-raised-button class="button" (click)="continueDrawing()">Continuer un dessin</button>
+	</div>
+
+	<div class="footer">
+		<div class="container-footer">
+			<h4>Équipe Poly</h4>
+			<p>Thomas Bergeron, Olivier Coulombe-Raymond, Samuel Crosilla, Frédéric Marchildon, Pierre Paquette</p>
+		</div>
+	</div>
+</div>

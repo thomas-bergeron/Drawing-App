@@ -1,0 +1,42 @@
+.title {
+	font-size: 28px;
+	font-weight: bold;
+	cursor: default;
+	font-family: Poppins, sans-serif;
+	text-align: center;
+}
+mat-dialog-content {
+	display: flex;
+	min-height: 55vh;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.fiche-container {
+	display: flex;
+	flex-direction: row;
+	min-width: 65vw;
+	justify-content: space-between;
+	text-align: center;
+}
+.fiche {
+	flex: 33%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+.action {
+	justify-content: flex-end;
+}
+.close {
+	background-color: #1f62f2;
+	color: white;
+}
+
+app-fiche {
+	overflow-y: auto;
+	height: 50vh;
+	max-width: 20vw;
+	border-style: solid;
+	border-width: 1px;
+}

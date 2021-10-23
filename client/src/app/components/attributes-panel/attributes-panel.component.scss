@@ -1,0 +1,84 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	margin: 5px;
+	min-height: 98vh;
+	max-height: 100vh;
+
+	min-width: 150px;
+	max-width: 150px;
+	align-content: center;
+	margin-left: 10px;
+
+	color: black;
+}
+
+.header {
+	text-align: center;
+	width: 100%;
+}
+
+.color-picker-container {
+	position: static;
+	margin-top: auto;
+	padding: 5px;
+	display: block;
+	background-color: #f4f7fd;
+	box-shadow: 19px 19px 26px #bdbdbd, -19px -19px 26px #ffffff;
+	border-radius: 10px;
+	padding-bottom: 2px;
+}
+.mat-slide-toggle {
+	display: block;
+}
+
+.disabled {
+	pointer-events: none;
+}
+
+#eye-dropper-canvas {
+	display: block;
+	margin-bottom: auto;
+	min-width: 150;
+	max-width: 150px;
+	min-height: 150px;
+	max-height: 150px;
+	image-rendering: optimizeSpeed; /* Older versions of FF          */
+	image-rendering: -moz-crisp-edges; /* FF 6.0+                       */
+	image-rendering: -webkit-optimize-contrast; /* Safari                        */
+	image-rendering: -o-crisp-edges; /* OS X & Windows Opera (12.02+) */
+	image-rendering: pixelated; /* Awesome future-browsers       */
+	-ms-interpolation-mode: nearest-neighbor; /* IE                            */
+}
+
+.mat-form-field {
+	width: 90%;
+}
+
+.stamp-img {
+	padding-top: 10px;
+	width: 100%;
+}
+
+.stamp-button-toggle {
+	height: 60px;
+	width: 45%;
+}
+
+.stamp-slider {
+	min-width: 0px;
+	width: 80%;
+}
+
+.stamp-toggle-group {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.mat-slider-horizontal {
+	min-width: 80%;
+}
+
+b {
+	font-size: 11px;
+}

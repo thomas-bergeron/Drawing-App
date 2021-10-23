@@ -1,0 +1,309 @@
+<div #sidebarElement class="container" id="container">
+    <div class="bar-container">
+        <button mat-raised-button [matMenuTriggerFor]="fichier" class="btn square" #tooltip="matTooltip" matTooltip="liste d'options pour le dessin" matTooltipPosition="right" matTooltipShowDelay="1000" [disabled]="toolInUse()">
+			<i class="far fa-file"></i>
+		</button>
+        <mat-menu #fichier class="container">
+            <button mat-button (click)="newDrawing()" value="ctrl-o" class="btn" #tooltip="matTooltip" matTooltip="Créer un nouveau dessin vide Raccourci: ctrl-o" matTooltipPosition="right" matTooltipShowDelay="1000">
+				<i class="fas fa-plus"></i>
+			</button>
+            <button mat-button (click)="openSaving()" value="ctrl-s" class="btn" #tooltip="matTooltip" matTooltip="Sauvegarder le dessin Raccourci: ctrl-s" matTooltipPosition="right" matTooltipShowDelay="1000">
+				<i class="far fa-save"></i>
+			</button>
+            <button mat-button (click)="openModal()" class="btn" #tooltip="matTooltip" matTooltip="Ouvrir le carrousel de dessin Raccourci: ctrl-g" matTooltipPosition="right" matTooltipShowDelay="1000">
+				<i class="far fa-folder-open"></i>
+			</button>
+            <button mat-button (click)="openExport()" value="ctrl-e" class="btn" #tooltip="matTooltip" matTooltip="Exporter le dessin Raccourci: ctrl-e" matTooltipPosition="right" matTooltipShowDelay="1000">
+				<i class="fas fa-file-export"></i>
+			</button>
+        </mat-menu>
+
+        <mat-button-toggle-group name="options" vertical class="button-group" (change)="valueChange($event.value)">
+            <div class="two-by-two">
+                <mat-button-toggle value="c" #pencil disableRipple="true" [checked]="verifyValue(pencil.value)" [disabled]="toolInUse()" #tooltip="matTooltip" matTooltip="Dessiner avec un crayon Raccourci: c" matTooltipPosition="right" matTooltipShowDelay="1000" class="btn">
+                    <i class="fas fa-pencil-alt"></i>
+                </mat-button-toggle>
+                <mat-button-toggle [disabled]="toolInUse()" value="a" #spray [checked]="verifyValue(spray.value)" #tooltip="matTooltip" matTooltip="Dessiner avec un aérosol Raccourci: a" matTooltipPosition="right" matTooltipShowDelay="1000" class="btn"><i class="fas fa-spray-can"></i
+				></mat-button-toggle>
+			</div>
+			<div class="two-by-two">
+				<mat-button-toggle
+					[disabled]="toolInUse()"
+					[matMenuTriggerFor]="formes"
+					[checked]="verifyValue(formeListe.value)"
+					disableRipple="true"
+					#tooltip="matTooltip"
+					matTooltip="Liste de forme à placer dans le dessin"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					class="btn"
+					><i class="fas fa-shapes"></i
+				></mat-button-toggle>
+				<mat-menu #formes>
+					<mat-button-toggle-group #formeListe="matButtonToggleGroup" vertical class="button-group" (change)="valueChange($event.value)">
+						<mat-button-toggle
+							value="1"
+							#rectangle
+							disableRipple="true"
+							[checked]="verifyValue(rectangle.value)"
+							#tooltip="matTooltip"
+							matTooltip="Placer un rectangle ou carré Raccourci: 1"
+							matTooltipPosition="right"
+							matTooltipShowDelay="1000"
+							class="btn"
+							><i class="far fa-square"></i>
+                </mat-button-toggle>
+                <mat-button-toggle value="2" #ellipse disableRipple="true" [checked]="verifyValue(ellipse.value)" #tooltip="matTooltip" matTooltip="Placer une ellipse ou cercle Raccourci: 2" matTooltipPosition="right" matTooltipShowDelay="1000" class="btn"><i class="far fa-circle"></i
+						></mat-button-toggle>
+						<mat-button-toggle
+							value="3"
+							#polygone
+							[checked]="verifyValue(polygone.value)"
+							#tooltip="matTooltip"
+							matTooltip="Placer un polygone Raccourci: 3"
+							matTooltipPosition="right"
+							matTooltipShowDelay="1000"
+							class="btn"
+							><i class="fas fa-draw-polygon"></i
+						></mat-button-toggle>
+					</mat-button-toggle-group>
+				</mat-menu>
+
+				<mat-button-toggle
+					value="l"
+					#line
+					disableRipple="true"
+					[checked]="verifyValue(line.value)"
+					[disabled]="toolInUse()"
+					#tooltip="matTooltip"
+					matTooltip="Dessiner une ligne Raccourci: l"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					class="btn"
+					><i class="fas fa-minus"></i
+				></mat-button-toggle>
+			</div>
+			<div class="two-by-two">
+				<mat-button-toggle
+					[disabled]="toolInUse()"
+					value="t"
+					#text
+					[checked]="verifyValue(text.value)"
+					#tooltip="matTooltip"
+					matTooltip="Placer du texte Raccourci: t"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					class="btn"
+					><i class="fas fa-text-height"></i
+				></mat-button-toggle>
+				<mat-button-toggle
+				[disabled]="toolInUse()"
+					value="b"
+					#fill
+					[checked]="verifyValue(fill.value)"
+					#tooltip="matTooltip"
+					matTooltip="Dessiner avec une couleur une partie du dessin Raccourci: b"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					class="btn"
+					><i class="fas fa-fill-drip"></i
+				></mat-button-toggle>
+			</div>
+			<div class="two-by-two">
+				<mat-button-toggle
+					value="e"
+					#eraser
+					disableRipple="true"
+					[checked]="verifyValue(eraser.value)"
+					[disabled]="toolInUse()"
+					#tooltip="matTooltip"
+					matTooltip="Effacer une partie du dessin Raccourci: e"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					class="btn"
+					><i class="fas fa-eraser"></i
+				></mat-button-toggle>
+				<mat-button-toggle
+					[disabled]="toolInUse()"
+					value="d"
+					#stamp
+					class="btn"
+					[checked]="verifyValue(stamp.value)"
+					#tooltip="matTooltip"
+					matTooltip="Placer une image sur le dessin Raccourci: d"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					><i class="fas fa-stamp"></i
+				></mat-button-toggle>
+			</div>
+			<div class="two-by-two">
+				<mat-button-toggle
+					[disabled]="toolInUse()"
+					value="i"
+					#select
+					class="btn"
+					[checked]="verifyValue(select.value)"
+					#tooltip="matTooltip"
+					matTooltip="Sélectionner la couleur d'un pixel Raccourci: i"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					><i class="fas fa-eye-dropper"></i
+				></mat-button-toggle>
+
+				<mat-button-toggle
+					[disabled]="toolInUse()"
+					[matMenuTriggerFor]="selection"
+					[checked]="verifyValue(selectionListe.value)"
+					#tooltip="matTooltip"
+					matTooltip="Selection d'une partie du dessin à l'aide d'une forme"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					class="btn"
+					><i class="far fa-object-ungroup"></i
+				></mat-button-toggle>
+
+				<mat-menu #selection>
+					<mat-button-toggle-group
+						#selectionListe="matButtonToggleGroup"
+						vertical
+						class="button-group"
+						(change)="valueChange($event.value)"
+					>
+						<mat-button-toggle
+							value="r"
+							#rectangleSelection
+							[checked]="verifyValue(rectangleSelection.value)"
+							#tooltip="matTooltip"
+							matTooltip="Sélection en rectangle ou carré Raccourci: r"
+							matTooltipPosition="right"
+							matTooltipShowDelay="1000"
+							class="btn"
+							><i class="fas fa-vector-square"></i>
+                </mat-button-toggle>
+                <mat-button-toggle value="s" #ellipseSelection [checked]="verifyValue(ellipseSelection.value)" #tooltip="matTooltip" matTooltip="Sélection en ellipse ou cercle Raccourci: s" matTooltipPosition="right" matTooltipShowDelay="1000" class="btn"><i class="far fa-circle"></i
+						></mat-button-toggle>
+						<mat-button-toggle
+							value="v"
+							#lassoSelection
+							[checked]="verifyValue(lassoSelection.value)"
+							#tooltip="matTooltip"
+							matTooltip="Sélection avec une forme créer Raccourci: v"
+							matTooltipPosition="right"
+							matTooltipShowDelay="1000"
+							class="btn"
+							><img class="lassoImage" src="/assets/lasso.png"></mat-button-toggle
+						>
+						<mat-button-toggle
+							value="ctrl-a"
+							#surfaceSelection
+							[checked]="verifyValue(surfaceSelection.value)"
+							(click)="runShortcut(surfaceSelection.value)"
+							#tooltip="matTooltip"
+							matTooltip="Sélectionner tout le dessin: ctrl + a"
+							matTooltipPosition="right"
+							matTooltipShowDelay="1000"
+							class="btn"
+							><i class="far fa-object-group"></i
+						></mat-button-toggle>
+					</mat-button-toggle-group>
+				</mat-menu>
+			</div>
+			<mat-button-toggle-group name="options-process" (change)="valueChange($event.value)">
+				<mat-button-toggle
+					[disabled]="!selectionIsActive()"
+					value="ctrl-c"
+					class="multi-button btn"
+					#copy
+					(click)="handleClipboard('c')"
+					#tooltip="matTooltip"
+					matTooltip="Copier une partie du dessin Raccourci: ctrl-c"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					><i class="far fa-copy"></i
+				></mat-button-toggle>
+				<mat-button-toggle
+                    [disabled]="!selectionIsActive() && !clipboardNotEmpty()"
+					value="ctrl-v"
+					class="multi-button btn"
+					#paste
+					(click)="handleClipboard('v')"
+					#tooltip="matTooltip"
+					matTooltip="Coller une partie du dessin Raccourci: ctrl-v"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					><i class="fas fa-paste"></i
+				></mat-button-toggle>
+			</mat-button-toggle-group>
+			<div class="two-by-two">
+				<mat-button-toggle
+					[disabled]="!selectionIsActive()"
+					value="ctrl-x"
+					class="multi-button btn"
+					#cut
+					(click)="handleClipboard('x')"
+					#tooltip="matTooltip"
+					matTooltip="Enlever une partie de dessin et la conserve pour copie Raccourci: ctrl-x"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					><i class="fas fa-cut"></i
+				></mat-button-toggle>
+				<mat-button-toggle
+					[disabled]="!selectionIsActive()"
+					value="Delete"
+					class="multi-button btn"
+					#cut
+					(change)="valueChange($event.value)"
+					(click)="handleClipboard('Delete')"
+					#tooltip="matTooltip"
+					matTooltip="Supprimer la sélection"
+					matTooltipPosition="right"
+					matTooltipShowDelay="1000"
+					><i class="fas fa-backspace"></i
+				></mat-button-toggle>
+			</div>
+			<div>
+				<button
+					class="btn"
+					[disabled]="toolInUse() || !drawingService.undoIsReady() || this.toolService.currentTool.info.name.includes('selection')"
+					(click)="this.drawingService.undo()"
+				>
+					<div class="icon-container">
+						<i class="fas fa-undo"></i>
+            </div>
+            </button>
+            <button class="btn" [disabled]="toolInUse() || !drawingService.redoIsReady() || this.toolService.currentTool.info.name.includes('selection')" (click)="this.drawingService.redo()">
+					<div class="icon-container">
+						<i class="fas fa-redo"></i>
+					</div>
+				</button>
+    </div>
+
+    	<mat-button-toggle-group name="outil-surface">
+       		<mat-button-toggle
+			[disabled]="toolInUse()"
+			value="g"
+			class="multi-button"
+			#grid class="btn"
+			(click)="toolService.isToolActive(grid.value) ? toggleDrawingOptions(grid.value) : toolService.changeTool(grid.value)" [checked]="toolService.isToolActive(grid.value)"
+            #tooltip="matTooltip" matTooltip="affiche une grille sur le dessin Raccourci: g" matTooltipPosition="right" matTooltipShowDelay="1000"><i class="fas fa-border-all"></i
+			></mat-button-toggle>
+			<mat-button-toggle
+				[disabled]="toolInUse()"
+				value="m"
+				class="multi-button"
+				#magnet
+				class="btn"
+				(click)='toolService.magnetService.toggleIsActive()'
+				[checked]="verifyValue(magnet.value)"
+				#tooltip="matTooltip"
+				matTooltip="bouger un outil le fait coller à la grille Raccourci: m"
+				matTooltipPosition="right"
+				matTooltipShowDelay="1000"
+				><i class="fas fa-magnet"></i
+			></mat-button-toggle>
+			</mat-button-toggle-group>
+		</mat-button-toggle-group>
+	</div>
+
+	<app-attributes-panel [activeTool]="toolService.currentTool" id="attributes-panel"></app-attributes-panel>
+</div>

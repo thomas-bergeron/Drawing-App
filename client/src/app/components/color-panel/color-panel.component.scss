@@ -1,0 +1,85 @@
+:host {
+	display: block;
+	justify-content: center;
+	min-height: 210px;
+	margin-right: 0;
+	padding-right: 0;
+	overflow: hidden;
+}
+
+.main-color {
+	height: 50px;
+	width: 50px;
+}
+
+.main-color.primary {
+	z-index: 1;
+	position: absolute;
+	top: 25%;
+	left: 18%;
+}
+
+.main-color.secondary {
+	position: absolute;
+	top: 45%;
+	left: 40%;
+}
+
+button {
+	position: absolute;
+	top: 18%;
+	right: 20%;
+	width: 30px;
+	height: 30px;
+	padding: 10px;
+	background-image: url('/assets/arrow.svg');
+	background-size: cover;
+	background-color: transparent;
+	transform: rotate(180deg);
+	border: none;
+}
+
+button:focus {
+	outline: none;
+}
+
+.color-picker {
+	z-index: 3;
+}
+
+.color-picker.primary {
+	position: fixed;
+	transform: translate(5%, -105%);
+}
+
+.color-picker.secondary {
+	position: fixed;
+	transform: translate(190px, -50%);
+}
+
+.color-history-wrapper {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 10px;
+	background-color: #f4f7fd;
+	border-radius: 10px;
+
+	box-shadow: 5px 5px 9px #d2d4da, -5px -5px 9px #ffffff;
+}
+
+.color {
+	width: 15%;
+	height: 18px;
+	flex-shrink: 0;
+	margin-right: 4%;
+	margin-bottom: 5px;
+	border-radius: 25px;
+}
+
+.switch-wrapper {
+	width: 100%;
+	height: 140px;
+	position: relative;
+	display: block;
+}

@@ -1,0 +1,45 @@
+<h2 mat-dialog-title class="title">Carrousel</h2>
+<mat-form-field>
+	<mat-chip-list #chipList aria-label="etiquette selection">
+		<mat-chip *ngFor="let etiquette of selectedEtiquettes" [selectable]="true" [removable]="true" (removed)="remove(etiquette)">
+			{{ etiquette }}
+			<mat-icon matChipRemove>cancel</mat-icon>
+		</mat-chip>
+		<input
+			placeholder="filtre"
+			[matChipInputFor]="chipList"
+			id="etiquetteInput"
+			#etiquetteInput
+			[formControl]="etiquetteCtrl"
+			[matAutocomplete]="auto"
+			[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+			[matChipInputAddOnBlur]="true"
+			(matChipInputTokenEnd)="add($event)"
+		/>
+	</mat-chip-list>
+	<mat-autocomplete id="autoComplete" #auto="matAutocomplete" (optionSelected)="selected($event)">
+		<mat-option *ngFor="let etiquette of filteredEtiquettes | async" [value]="etiquette">
+			{{ etiquette }}
+		</mat-option>
+	</mat-autocomplete>
+</mat-form-field>
+
+<mat-dialog-content>
+	<button id="left-button" (click)="increaseIndex()">
+		<mat-icon>keyboard_arrow_left</mat-icon>
+	</button>
+	<div class="fiche-container">
+		<app-fiche [dessin]="previousFiche" (openFicheEvent)="open($event)" (deleteFicheEvent)="deleteDrawing($event)" class="fiche"></app-fiche>
+
+		<app-fiche [dessin]="centerFiche" (openFicheEvent)="open($event)" (deleteFicheEvent)="deleteDrawing($event)" class="fiche"></app-fiche>
+
+		<app-fiche [dessin]="nextFiche" (openFicheEvent)="open($event)" (deleteFicheEvent)="deleteDrawing($event)" class="fiche"></app-fiche>
+	</div>
+	<button id="right-button" (click)="decreaseIndex()">
+		<mat-icon>keyboard_arrow_right</mat-icon>
+	</button>
+</mat-dialog-content>
+
+<mat-dialog-actions class="action">
+	<button mat-raised-button mat-dialog-close class="close">Fermer</button>
+</mat-dialog-actions>

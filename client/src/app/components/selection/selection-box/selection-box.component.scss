@@ -1,0 +1,25 @@
+.box-button {
+	cursor: default;
+	width: 7px;
+	height: 7px;
+	margin: 0%;
+	border: solid 1px #ccc;
+	color: rgba(0, 0, 0, 0.87);
+	background: #fff;
+	border-radius: 4px;
+	position: absolute;
+	visibility: hidden;
+	z-index: 1;
+	box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+#selection-box {
+	display: none;
+	border-left: 2px;
+	border-bottom: 2px;
+	border-top: 2px;
+	border-right: 2px;
+	border-style: solid;
+	border-color: #2b64e0;
+    z-index: 1;
+}

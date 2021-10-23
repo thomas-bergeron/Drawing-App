@@ -1,0 +1,25 @@
+.background {
+	background-color: #bebebe;
+	overflow: auto;
+	z-index: -1;
+	display: flex;
+
+	position: fixed;
+	width: 100%;
+}
+
+.sidebar {
+	resize: none;
+	flex: 0;
+	border-right: 1px solid black;
+
+	height: 100%;
+    z-index: 10;
+}
+
+.drawing {
+	resize: none;
+	flex: 2;
+
+	width: 100%;
+}

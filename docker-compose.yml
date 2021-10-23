@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+    projet2-angular:
+        build:
+            context: ./client/.devcontainer
+        container_name: projet2-angular
+        volumes:
+            - type: bind
+              source: .
+              target: /workspace
+            - type: bind
+              source: $HOME/.ssh
+              target: /home/node/.ssh
+            - type: volume
+              source: client-node_modules
+              target: /workspace/client/node_modules
+        ports:
+            - '4200:4200'
+        command: /bin/sh -c "sleep infinity"
+
+    projet2-node:
+        build:
+            context: ./server/.devcontainer
+        container_name: projet2-node
+        volumes:
+            - type: bind
+              source: .
+              target: /workspace
+            - type: bind
+              source: $HOME/.ssh
+              target: /home/node/.ssh
+            - type: volume
+              source: server-node_modules
+              target: /workspace/server/node_modules
+        ports:
+            - '3000:3000'
+        command: /bin/sh -c "sleep infinity"
+volumes:
+    client-node_modules:
+        name: client-node_modules
+    server-node_modules:
+        name: server-node_modules

@@ -1,0 +1,265 @@
+<div class="container">
+	<h2
+		*ngIf="
+			activeTool &&
+			(activeTool.options.size !== -1 ||
+				activeTool.info.name === 'eye-dropper' ||
+				activeTool.info.name === 'text' ||
+				activeTool.info.name === 'stamp')
+		"
+		class="header"
+	>
+		Attributs {{ activeTool.info.buttonText }}
+	</h2>
+	<div
+		*ngIf="
+			this.activeTool.options.size !== -1 &&
+			activeTool.info.name !== 'shift-selection' &&
+			activeTool.info.name !== 'spray' &&
+			activeTool.info.name !== 'grille' &&
+			activeTool.info.name !== 'fill'
+		"
+	>
+		<div *ngIf="activeTool" class="label">Taille du trait</div>
+		<mat-slider [max]="max" [min]="min" [thumbLabel]="true" [(value)]="toolService.currentTool.options.size"></mat-slider>
+		<b> {{ toolService.currentTool.options.size }}px </b>
+	</div>
+
+	<div *ngIf="toolService.currentTool.options.shapeOptions && activeTool.info.name !== 'shift-selection'">
+		<br />
+		<mat-slide-toggle
+			[(checked)]="toolService.currentTool.options.shapeOptions.contour"
+			#rectangle
+			(change)="toolService.currentTool.options.shapeOptions.contour = $event.checked"
+			(disabled)="(toolService.currentTool.options.shapeOptions.fill)"
+			>Contour</mat-slide-toggle
+		>
+		<br />
+		<mat-slide-toggle
+			[(checked)]="toolService.currentTool.options.shapeOptions.fill"
+			#rectangle
+			(change)="toolService.currentTool.options.shapeOptions.fill = $event.checked"
+			>Plein</mat-slide-toggle
+		>
+		<br />
+		<br />
+		<div *ngIf="toolService.currentTool.options.shapeOptions.nbVertices" class="label">
+			Nombre de côtés
+			<mat-slider [max]="12" [min]="3" [thumbLabel]="true" [(value)]="toolService.currentTool.options.shapeOptions.nbVertices"></mat-slider>
+			<b> {{ toolService.currentTool.options.shapeOptions.nbVertices }}</b>
+		</div>
+	</div>
+
+	<div *ngIf="activeTool.options.lineOptions">
+		<div class="label">
+			<label>Points de jonction</label>
+		</div>
+		<div>
+			<mat-slide-toggle
+				style="padding-left: 10px"
+				#slideToggle
+				[(checked)]="toolService.currentTool.options.lineOptions.hasConnectionDots"
+				(change)="toolService.currentTool.options.lineOptions.hasConnectionDots = $event.checked"
+			></mat-slide-toggle>
+		</div>
+		<div *ngIf="slideToggle.checked">
+			<div class="label">Rayon des points</div>
+			<mat-slider
+				[max]="max"
+				[min]="min"
+				[thumbLabel]="true"
+				[(value)]="toolService.currentTool.options.lineOptions.connectionDotSize"
+			></mat-slider>
+			<b> {{ activeTool.options.lineOptions.connectionDotSize }}px</b>
+		</div>
+	</div>
+	<div *ngIf="activeTool.info.name === 'spray'">
+		<div class="label">
+			<label>Diamètre des goutelletes</label>
+		</div>
+		<div>
+			<mat-slider [max]="5" [min]="1" [thumbLabel]="true" [(value)]="toolService.currentTool.options.sprayOptions.dropletSize"></mat-slider>
+			<b> {{ toolService.currentTool.options.sprayOptions.dropletSize }}px </b>
+		</div>
+		<div class="label">
+			<label>Diamètre du jet</label>
+		</div>
+		<div>
+			<mat-slider [max]="50" [min]="10" [thumbLabel]="true" [(value)]="toolService.currentTool.options.sprayOptions.spraySize"></mat-slider>
+			<b> {{ toolService.currentTool.options.sprayOptions.spraySize }}px </b>
+		</div>
+		<div class="label">
+			<label>Émissions par secondes</label>
+		</div>
+		<div>
+			<mat-slider [max]="5000" [min]="100" [thumbLabel]="true" [(value)]="toolService.currentTool.options.sprayOptions.sprayTime"></mat-slider>
+			<b> {{ toolService.currentTool.options.sprayOptions.sprayTime }}</b>
+		</div>
+	</div>
+	<div *ngIf="activeTool.info.name === 'fill'">
+		<div class="label">
+			<label>Tolérance (%)</label>
+		</div>
+		<div>
+			<mat-slider [max]="100" [min]="0" [thumbLabel]="true" [(value)]="toolService.currentTool.options.bucketOptions.tolerance"></mat-slider>
+		</div>
+	</div>
+	<div *ngIf="activeTool.info.name === 'grille'">
+		<div class="label">
+			<label>Taille des carrés</label>
+		</div>
+		<div>
+			<mat-slider
+				[max]="250"
+				[min]="5"
+				[thumbLabel]="true"
+				(change)="toolService.updateGridSize($event.value)"
+				[value]="toolService.currentTool.options.gridOptions.size"
+			></mat-slider>
+			<b> {{ toolService.currentTool.options.gridOptions.size }}px </b>
+		</div>
+		<div class="label">
+			<label>Opacité de la grille</label>
+		</div>
+		<div>
+			<mat-slider [max]="100" [min]="40" [thumbLabel]="true" [(value)]="toolService.currentTool.options.gridOptions.opacity"></mat-slider>
+			<b> {{ toolService.currentTool.options.gridOptions.opacity }}% </b>
+		</div>
+	</div>
+
+	<div *ngIf="activeTool.info.name === 'eye-dropper'">
+		<canvas id="eye-dropper-canvas"></canvas>
+	</div>
+
+	<div *ngIf="activeTool.info.name === 'text'" id="text-options-panel">
+		<div class="label">Police</div>
+		<mat-form-field appearance="fill">
+			<mat-select
+				#FontSelect
+				[(value)]="toolService.currentTool.options.textOptions.font"
+				(closed)="FontSelect._elementRef.nativeElement.blur()"
+			>
+				<mat-option [value]="font" *ngFor="let font of fonts">{{ font }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<br />
+		<br />
+		<div class="label">Taille de la police</div>
+		<mat-slider
+			#FontSizeSlider
+			[max]="70"
+			[min]="15"
+			[thumbLabel]="true"
+			[(value)]="toolService.currentTool.options.textOptions.fontSize"
+			(change)="FontSizeSlider._elementRef.nativeElement.blur()"
+		></mat-slider>
+		<b> {{ toolService.currentTool.options.textOptions.fontSize }}px</b>
+		<br />
+		<br />
+		<mat-slide-toggle
+			[(checked)]="toolService.currentTool.options.textOptions.isBold"
+			(change)="toolService.currentTool.options.textOptions.isBold = $event.checked"
+			>Gras</mat-slide-toggle
+		>
+		<br />
+		<mat-slide-toggle
+			[(checked)]="toolService.currentTool.options.textOptions.isItalic"
+			(change)="toolService.currentTool.options.textOptions.isItalic = $event.checked"
+			>Italique</mat-slide-toggle
+		>
+		<br />
+		<br />
+		<mat-button-toggle-group [(value)]="toolService.currentTool.options.textOptions.alignment">
+			<mat-button-toggle value="left" aria-label="Text align left">
+				<mat-icon>format_align_left</mat-icon>
+			</mat-button-toggle>
+			<mat-button-toggle value="center" aria-label="Text align center">
+				<mat-icon>format_align_center</mat-icon>
+			</mat-button-toggle>
+			<mat-button-toggle value="right" aria-label="Text align right">
+				<mat-icon>format_align_right</mat-icon>
+			</mat-button-toggle>
+		</mat-button-toggle-group>
+	</div>
+
+	<div id="stamp-attributes" *ngIf="activeTool.info.name === 'stamp'" id="stamp-options-panel">
+		<div class="label">Étampe</div>
+		<mat-button-toggle-group
+			class="stamp-toggle-group"
+			(change)="toolService.currentTool.options.stampOptions.stampSrc = $event.value"
+			value="{{ stamps[0] }}"
+		>
+			<mat-button-toggle class="stamp-button-toggle" *ngFor="let stamp of stamps" value="{{ stamp }}">
+				<img class="stamp-img" src="{{ stamp }}" />
+			</mat-button-toggle>
+		</mat-button-toggle-group>
+		<br />
+		<br />
+		<div class="label">Facteur de mise à l'échelle</div>
+		<mat-slider
+			class="stamp-slider"
+			#StampSizeSlider
+			[max]="3"
+			[min]="0.1"
+			[step]="0.1"
+			[thumbLabel]="true"
+			[(value)]="toolService.currentTool.options.stampOptions.scalingFactor"
+			(change)="StampSizeSlider._elementRef.nativeElement.blur()"
+		></mat-slider>
+		<b> {{ toolService.currentTool.options.stampOptions.scalingFactor }}</b>
+		<br />
+		<br />
+		<div class="label">Rotation (degrés)</div>
+		<mat-slider
+			class="stamp-slider"
+			#StampOrientationSlider
+			[max]="360"
+			[min]="0"
+			[step]="1"
+			[thumbLabel]="true"
+			[(value)]="toolService.currentTool.options.stampOptions.orientation"
+			(change)="StampOrientationSlider._elementRef.nativeElement.blur()"
+		></mat-slider>
+		<b> {{ toolService.currentTool.options.stampOptions.orientation }}°</b>
+
+
+    </div>
+	<div *ngIf="activeTool.info.name === 'shift-selection' && toolService.magnetService.isActive " >
+		<b>Point de controle</b>
+		<mat-button-toggle-group vertical #group="matButtonToggleGroup" (change) = "toolService.magnetService.changeControlPoint($event.value)">
+            <mat-button-toggle value=0 [checked]="toolService.magnetService.controlPoint ==0">
+            	Centre
+            </mat-button-toggle>
+			<mat-button-toggle value=1 [checked]="toolService.magnetService.controlPoint ==1">
+				Centre gauche
+			</mat-button-toggle>
+			<mat-button-toggle value=2 [checked]="toolService.magnetService.controlPoint ==2">
+				Centre droit
+			</mat-button-toggle>
+			  <mat-button-toggle value=3 [checked]="toolService.magnetService.controlPoint ==3">
+				Centre haut
+			</mat-button-toggle>
+			<mat-button-toggle value=4 [checked]="toolService.magnetService.controlPoint ==4">
+				Centre bas
+			</mat-button-toggle>
+			<mat-button-toggle value=5 [checked]="toolService.magnetService.controlPoint ==5">
+				Coin haut gauche
+			</mat-button-toggle>
+			<mat-button-toggle value=6 [checked]="toolService.magnetService.controlPoint ==6">
+				Coin bas gauche
+			</mat-button-toggle>
+			<mat-button-toggle value=7 [checked]="toolService.magnetService.controlPoint ==7">
+				Coin haut droit
+			</mat-button-toggle>
+			<mat-button-toggle value=8 [checked]="toolService.magnetService.controlPoint ==8">
+				Coin bas droit
+			</mat-button-toggle>
+
+        </mat-button-toggle-group>
+	</div>
+	<div class="color-picker-container">
+		<app-color-panel
+			[ngClass]="this.toolService.hasBegunDrawing() && this.toolService.currentTool.info.name !== 'text' ? 'disabled' : ''"
+		></app-color-panel>
+	</div>
+</div>

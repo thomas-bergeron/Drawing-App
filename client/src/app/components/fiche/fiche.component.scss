@@ -1,0 +1,20 @@
+#name {
+	word-wrap: break-word;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+.remove{
+	background-color:rgba(209, 24, 24, 0.959);
+	color:white;
+}
+
+#image-container {
+	max-height: 20%;
+}
+#etiquette-container {
+	height: 30%;
+	overflow-y: auto;
+}

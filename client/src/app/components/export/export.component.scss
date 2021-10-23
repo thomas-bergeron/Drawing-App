@@ -1,0 +1,47 @@
+.title {
+	font-size: 28px;
+	font-weight: bold;
+	cursor: default;
+	font-family: Poppins, sans-serif;
+	text-align: center;
+}
+
+.imgur {
+	justify-content: space-between;
+	color: white;
+	background-color: #19bd6b;
+	margin-left: 10px;
+}
+
+.content {
+	justify-content: space-between;
+	margin-left: 10px;
+}
+
+.center {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+mat-dialog-content {
+	display: flex;
+	position: center;
+	min-height: 52vh;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.action {
+	justify-content: flex-end;
+}
+
+.close {
+	background-color: #1f62f2;
+	color: white;
+	justify-content: space-between;
+	margin-left: 10px;
+}

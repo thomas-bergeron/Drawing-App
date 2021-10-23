@@ -1,0 +1,73 @@
+<div id="drawing-container" #container>
+	<div class="limit" [ngStyle]="{ 'width.px': limitWidth, 'height.px': limitHeight }">
+		<div id="canvas-container" [ngStyle]="{ 'width.px': canvasWidth, 'height.px': canvasHeight }" (mousedown)="onMouseDown($event)">
+			<canvas id="canvas" #baseCanvas></canvas>
+			<canvas id="previewLayer" #previewCanvas></canvas>
+			<div>
+				<svg class="grid" [attr.width]="this.canvasWidth" [attr.height]="this.canvasHeight" *ngIf="gridService.options.gridOptions.isActive">
+					<defs>
+						<pattern
+							id="grid"
+							[attr.width]="gridService.options.gridOptions.size"
+							[attr.height]="gridService.options.gridOptions.size"
+							patternUnits="userSpaceOnUse"
+						>
+							<path
+								[attr.d]="gridService.vPath"
+								fill="none"
+								stroke="gray"
+								stroke-width="1"
+								[ngStyle]="{ opacity: gridService.options.gridOptions.opacity / 100 }"
+							/>
+							<path
+								[attr.d]="gridService.hPath"
+								fill="none"
+								stroke="gray"
+								stroke-width="1"
+								[ngStyle]="{ opacity: gridService.options.gridOptions.opacity / 100 }"
+							/>
+						</pattern>
+					</defs>
+					<rect width="100%" height="100%" fill="url(#grid)" />
+				</svg>
+			</div>
+
+			<div
+				id="corner-cp"
+				class="resize-button"
+				cdkDrag
+				(cdkDragStarted)="startPreview()"
+				(cdkDragReleased)="endPreview()"
+				cdkDragBoundary=".limit"
+				[cdkDragFreeDragPosition]="cornerResizePos"
+				(cdkDragMoved)="preview($event.distance.x, $event.distance.y)"
+			></div>
+
+			<div
+				id="right-cp"
+				class="resize-button"
+				cdkDrag
+				cdkDragLockAxis="x"
+				(cdkDragStarted)="startPreview()"
+				(cdkDragReleased)="endPreview()"
+				cdkDragBoundary=".limit"
+				[cdkDragFreeDragPosition]="rightResizePos"
+				(cdkDragMoved)="preview($event.distance.x, $event.distance.y)"
+			></div>
+
+			<div
+				id="bottom-cp"
+				class="resize-button"
+				cdkDrag
+				cdkDragLockAxis="y"
+				(cdkDragStarted)="startPreview()"
+				(cdkDragReleased)="endPreview()"
+				cdkDragBoundary=".limit"
+				[cdkDragFreeDragPosition]="bottomResizePos"
+				(cdkDragMoved)="preview($event.distance.x, $event.distance.y)"
+			></div>
+			<div *ngIf="isResizing" [ngStyle]="{ 'width.px': canvasPreview.x, 'height.px': canvasPreview.y }" class="preview"></div>
+			<app-selection-box id="selection"></app-selection-box>
+		</div>
+	</div>
+</div>

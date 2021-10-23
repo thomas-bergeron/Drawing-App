@@ -1,0 +1,16 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.112.0/containers/typescript-node-12
+{
+    "name": "projet2-node",
+    "dockerComposeFile": "../../docker-compose.yml",
+    "service": "projet2-node",
+    // Set *default* container specific settings.json values on container create.
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": ["ms-vscode.vscode-typescript-tslint-plugin", "ms-azuretools.vscode-docker", "mhutchie.git-graph"
+        ,"humao.rest-client"],
+    "workspaceFolder": "/workspace",
+    "remoteUser": "node"
+}

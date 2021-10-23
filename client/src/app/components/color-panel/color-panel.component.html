@@ -1,0 +1,30 @@
+<div class="switch-wrapper">
+	<div class="main-color primary" [ngStyle]="{ 'background-color': this.primaryColor }" (click)="primaryColorPicker = true"></div>
+
+	<app-color-picker
+		#mainColorPicker
+		*ngIf="primaryColorPicker"
+		class="color-picker primary"
+		[isPrimaryColor]="true"
+		(shouldHide)="primaryColorPicker = false; mainColorPicker.updateColor()"
+	></app-color-picker>
+
+	<button (click)="switchMainColors()"></button>
+
+	<div class="main-color secondary" [ngStyle]="{ 'background-color': this.secondaryColor }" (click)="secondColorPicker = true"></div>
+	<app-color-picker
+		#secondaryColorPicker
+		*ngIf="secondColorPicker"
+		class="color-picker secondary"
+		[isPrimaryColor]="false"
+		(shouldHide)="secondColorPicker = false; secondaryColorPicker.updateColor()"
+	></app-color-picker>
+</div>
+<div class="color-history-wrapper">
+	<div
+		class="color"
+		*ngFor="let color of colorHistory; let i = index"
+		[ngStyle]="{ 'background-color': colorHistory[i] || '#e6e6e6' }"
+		(mousedown)="useColorHistory($event, this.colorHistory[i])"
+	></div>
+</div>

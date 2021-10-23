@@ -1,0 +1,27 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.112.0/containers/typescript-node-12
+{
+    "name": "projet2-angular",
+    "dockerComposeFile": "../../docker-compose.yml",
+    "service": "projet2-angular",
+    // Set *default* container specific settings.json values on container create.
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+        "msjsdiag.debugger-for-chrome",
+        "firefox-devtools.vscode-firefox-debug",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "ms-azuretools.vscode-docker",
+        "johnpapa.angular2",
+        "mhutchie.git-graph",
+    ],
+    "workspaceFolder": "/workspace",
+    "remoteUser": "node",
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "cd client && npm ci"
+    // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+}

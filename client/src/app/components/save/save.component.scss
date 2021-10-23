@@ -1,0 +1,28 @@
+mat-dialog-content {
+	display: flex;
+	min-height: 65vh;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.title {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+}
+
+.close {
+
+	background-color: #1f62f2;
+	color: white;
+
+}
+
+.action {
+	justify-content: flex-end;
+}
+.button:hover {
+	border-radius: 25px;
+	background: #f4f7fd;
+	box-shadow: inset 7px 7px 14px #d9dce1, inset -7px -7px 14px #ffffff;
+}

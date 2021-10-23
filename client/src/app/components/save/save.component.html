@@ -1,0 +1,33 @@
+<h2 mat-dialog-title class="title">Sauvegarde</h2>
+<mat-dialog-content>
+	<mat-form-field>
+		<mat-label>Nom du dessin</mat-label>
+		<input matInput type="text" [(ngModel)]="name" maxlength="26" />
+		<mat-hint>26 caractères maximum</mat-hint>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-chip-list #chipList aria-label="etiquette selection">
+			<mat-chip *ngFor="let etiquette of etiquettes" [selectable]="true" [removable]="true" (removed)="removeEtiquette(etiquette)">
+				{{ etiquette.toString() }}
+				<mat-icon matChipRemove>cancel</mat-icon>
+			</mat-chip>
+			<input
+				placeholder="ajouter un étiquette"
+				[matChipInputFor]="chipList"
+				id="etiquetteInput"
+				#etiquetteInput
+				[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+				(matChipInputTokenEnd)="addEtiquette($event)"
+			/>
+		</mat-chip-list>
+		<mat-hint
+			>Appuyer sur "Entrer" pour ajouter un étiquette.<br />
+			15 caractères maximum</mat-hint
+		>
+	</mat-form-field>
+	<img src="{{ image }}" />
+</mat-dialog-content>
+<mat-dialog-actions class = 'action'>
+	<button mat-raised-button [disabled]="isSaving" (click)="sendServer()">Sauvegarder</button>
+	<button mat-raised-button class = 'close' [disabled]="isSaving" mat-dialog-close (click)="close()" class="close">Fermer</button>
+</mat-dialog-actions>

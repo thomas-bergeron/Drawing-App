@@ -1,0 +1,92 @@
+<div
+	id="selection-box"
+	#container
+	[ngStyle]="{ position: 'absolute', 'width.px': boxWidth - 1, 'height.px': boxHeight - 1, 'left.px': boxLeft - 2, 'top.px': boxTop - 2 }"
+>
+	<div
+		id="east-cp"
+		class="box-button"
+		cdkDrag
+		cdkDragLockAxis="x"
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 'e')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="eastBoxPos"
+	></div>
+
+	<div
+		id="north-cp"
+		class="box-button"
+		cdkDrag
+		cdkDragLockAxis="y"
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 'n')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="northBoxPos"
+	></div>
+
+	<div
+		id="ne-cp"
+		class="box-button"
+		cdkDrag
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 'ne')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="northEastBoxPos"
+	></div>
+
+	<div
+		id="nw-cp"
+		class="box-button"
+		cdkDrag
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 'nw')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="northWestBoxPos"
+	></div>
+
+	<div
+		id="south-cp"
+		class="box-button"
+		cdkDrag
+		cdkDragLockAxis="y"
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 's')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="southBoxPos"
+	></div>
+
+	<div
+		id="se-cp"
+		class="box-button"
+		cdkDrag
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 'se')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="southEastBoxPos"
+	></div>
+
+	<div
+		id="sw-cp"
+		class="box-button"
+		cdkDrag
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 'sw')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="southWestBoxPos"
+	></div>
+
+	<div
+		id="west-cp"
+		class="box-button"
+		cdkDrag
+		cdkDragLockAxis="x"
+		(cdkDragStarted)="startPreview()"
+		(cdkDragMoved)="preview($event.distance.x, $event.distance.y, 'w')"
+		(cdkDragReleased)="endPreview()"
+		[cdkDragFreeDragPosition]="westBoxPos"
+	></div>
+
+    
+    <app-selection-manager id="selection-manager" [ngStyle]="{'position': 'absolute', 'width.px': boxWidth, 'height.px': boxHeight, 'left.px': 0, 'top.px': 0}"></app-selection-manager>
+</div>
