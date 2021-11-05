@@ -9,6 +9,6 @@ This is an Angular web application that I developed along with four other develo
 
 # See it in action
 
-You can use the app by following this link: [thomas-bergeron.github.io/Drawing-App/](thomas-bergeron.github.io/Drawing-App/)
+You can use the app by following this link: [https://thomas-bergeron.github.io/Drawing-App/](thomas-bergeron.github.io/Drawing-App/)
 
 Please note that the back-end is not deployed on this version.
